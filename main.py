@@ -1,5 +1,9 @@
+# Discord.py library
 import discord 
+# parse JSON
 import json
+# Make HTTP requests
+import requests
 
 # Intializing the discord client
 client = discord.Client()
@@ -20,6 +24,13 @@ def startBot():
     # Run the Bot
     client.run(botToken)
 
+def get_random_quote():
+    response = requests.get("https://zenquotes.io/api/random")
+    json_data = json.loads(response.text)
+    quote = json_data[0]['q'] + " -" + json_data[0]['a']
+    return(quote)
+
+
 @client.event
 async def on_ready():
     print('System Initialized: {0.user}'.format(client))
@@ -35,7 +46,11 @@ async def on_message(message):
 
         msg = message.content[1:]
 
-        if msg == "Hello":
-            await message.channel.send('Hello!')
+        if msg.lower() == 'ping':
+            await message.channel.send('PONG')
+
+        if msg.lower() == 'quote':
+            quote = get_random_quote()
+            await message.channel.send(quote)
 
 startBot()
