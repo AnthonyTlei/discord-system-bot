@@ -19,6 +19,11 @@ client = discord.Client()
 
 """
 
+# Global Variables
+global botKeyword
+
+botKeyword = "-"
+
 def startBot():
 
     f = open('environment.JSON')
@@ -44,19 +49,21 @@ def get_random_quote():
     quote = json_data[0]['q'] + " -" + json_data[0]['a']
     return(quote)
 
-def get_random_mars_photo():
-    
+def get_random_mars_photos(count):
+
     URI = 'https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key={}'.format(nasaToken)
     response = requests.get(URI)
     json_data = json.loads(response.text)
     photos = json_data["photos"]
+    photos_URLs = []
 
-    random_photo_index = random.randint(0, len(photos))
-    random_photo_object = photos[random_photo_index]
-    random_photo_URL = random_photo_object['img_src']
+    for i in range(count):
+        random_photo_index = random.randint(0, len(photos))
+        random_photo_object = photos[random_photo_index]
+        random_photo_URL = random_photo_object['img_src']
+        photos_URLs.append(random_photo_URL)
 
-    return random_photo_URL
-
+    return photos_URLs
 
 @client.event
 async def on_ready():
@@ -69,7 +76,7 @@ async def on_message(message):
     if message.author == client.user:
         return 
     
-    if message.content.startswith('<'):
+    if message.content.startswith(botKeyword):
 
         msg = message.content[1:]
 
@@ -80,8 +87,22 @@ async def on_message(message):
             quote = get_random_quote()
             await message.channel.send(quote)
 
-        if msg.lower() == 'mars':
-            photo = get_random_mars_photo()
-            await message.channel.send(photo)
+        if 'mars' in msg.lower():
+            countStr = msg.lower()[5:-1]
+
+            try:
+                count = int(countStr)
+            except:
+                await message.channel.send("The command format is: {}mars(#) where # is a number between 1 and 5".format(botKeyword))
+                return 
+
+            if count > 0 and count <= 5:
+                photos = get_random_mars_photos(count)
+                for photo in photos:
+                    await message.channel.send(photo)
+
+            else:
+                await message.channel.send("Number must be between 1 and 5")
 
 startBot()
+
