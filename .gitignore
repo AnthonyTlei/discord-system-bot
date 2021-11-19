@@ -130,3 +130,4 @@ dmypy.json
 
 # environment file
 environment.JSON
+test.py
