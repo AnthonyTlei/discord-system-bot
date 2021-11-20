@@ -6,6 +6,8 @@ import json
 import requests
 # Handle Random numbers
 import random
+# Local Libraries
+from libs import AgentRandomizer as agentSelector
 
 # Intializing the discord client
 client = discord.Client()
@@ -65,6 +67,9 @@ def get_random_mars_photos(count):
 
     return photos_URLs
 
+def select_random_agents(players):
+    return agentSelector.randomize(players)
+
 @client.event
 async def on_ready():
     print('System Initialized: {0.user}'.format(client))
@@ -79,6 +84,10 @@ async def on_message(message):
     if message.content.startswith(botKeyword):
 
         msg = message.content[1:]
+
+        if msg.lower() == 'help':
+            response = "..."
+            await message.channel.send(response)
 
         if msg.lower() == 'ping':
             await message.channel.send('PONG')
@@ -103,6 +112,12 @@ async def on_message(message):
 
             else:
                 await message.channel.send("Number must be between 1 and 5")
+
+        if 'select-agents' in msg.lower():
+            playerListStr = msg.lower()[14:-1]
+            data = select_random_agents(playerListStr)
+            print(data)
+            await message.channel.send(data)
 
 startBot()
 
