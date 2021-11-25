@@ -115,9 +115,9 @@ async def on_message(message):
 
         if 'select-agents' in msg.lower():
             playerListStr = msg.lower()[14:-1]
-            data = select_random_agents(playerListStr)
+            data = select_random_agents(playerListStr).to_markdown(tablefmt="pipe")
             print(data)
-            await message.channel.send(data)
+            await message.channel.send("```" + str(data) + "```")
 
 startBot()
 
