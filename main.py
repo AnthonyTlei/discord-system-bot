@@ -27,10 +27,12 @@ def startBot():
         global envData
         envData = json.load(file)
 
+    with open("commands.json",'r+') as file:
+        global commands
+        commands = json.load(file)
+
     tokens["NASA"] = envData["api"]["nasa"]
     tokens["Bot"] = envData["bot"]["token"]
-    global commands
-    commands = envData["commands"]
 
     client.run(tokens["Bot"])
 
@@ -39,7 +41,6 @@ def get_random_quote():
 
 def get_random_mars_photos(countStr):
     return botFuncs.nasa(countStr, tokens["NASA"], botKeyword)
-
 def select_random_agents(players):
     return botFuncs.select_random_agents(players)
 def breakTie(players):
@@ -52,6 +53,8 @@ def rollDice(count = 1):
     return botFuncs.rollDice(count)
 def cap(message = ""):
     return botFuncs.cap(message)
+def ping():
+    return botFuncs.ping()
 
 @client.event
 async def on_ready():
@@ -71,9 +74,6 @@ async def on_message(message):
         if msg.lower() == 'help':
             response = "..."
             await message.channel.send(response)
-
-        if msg.lower() == 'ping':
-            await message.channel.send('PONG')
 
         for command in commands:
             if command in msg.lower():

@@ -72,3 +72,5 @@ def cap(message):
     else:
         m = [x for x in set(message.split(" ")) if x != ""][0]
         return m + " is " + result + "-ping"
+def ping():
+    return "PONG"

@@ -3,7 +3,7 @@ from numpy.random import default_rng
 import pandas as pd
 from pandas import Series, DataFrame
 
-agents = ['Astra', 'Breach', 'Brimstone', 'Cypher', 'Jett', 'Killjoy', 'Omen', 'Phoenix', 'Raze', 'Reyna', 'Sage', 'Skye', 'Sova', 'Viper', 'Yoru']
+agents = ['Astra', 'Kay/O', 'Chamber' , 'Breach', 'Brimstone', 'Cypher', 'Jett', 'Killjoy', 'Omen', 'Phoenix', 'Raze', 'Reyna', 'Sage', 'Skye', 'Sova', 'Viper', 'Yoru']
 
 def randomize(players):
     participants = players.split(" ")

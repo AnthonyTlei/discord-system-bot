@@ -1,0 +1,11 @@
+{
+  "select-agents": "select_random_agents",
+  "quote": "get_random_quote",
+  "mars": "get_random_mars_photos",
+  "break-tie": "breakTie",
+  "coin-flip": "coinFlip",
+  "shuffle": "shuffle",
+  "roll-dice": "rollDice",
+  "cap": "cap",
+  "ping": "ping"
+}
