@@ -2,12 +2,8 @@
 import discord 
 # parse JSON
 import json
-# Make HTTP requests
-import requests
-# Handle Random numbers
-import random
 # Local Libraries
-from libs import AgentRandomizer as agentSelector
+from libs import botFunctions as botFuncs
 
 # Intializing the discord client
 client = discord.Client()
@@ -21,54 +17,41 @@ client = discord.Client()
 
 """
 
-# Global Variables
-global botKeyword
-
 botKeyword = "-"
+envData = {}
+tokens = {}
+commands = {}
 
 def startBot():
+    with open("environment.json",'r+') as file:
+        global envData
+        envData = json.load(file)
 
-    f = open('environment.JSON')
-    data = json.load(f)
+    tokens["NASA"] = envData["api"]["nasa"]
+    tokens["Bot"] = envData["bot"]["token"]
+    global commands
+    commands = envData["commands"]
 
-    botInfo = data["bot"]
-    apiInfo = data["api"]
-
-    global botToken 
-    botToken = botInfo["token"]
-    global nasaToken 
-    nasaToken = apiInfo["nasa"]
-
-    print("Bot Token: " + botToken)
-    print("NASA Token: " + nasaToken)
-
-    # Run the Bot
-    client.run(botToken)
+    client.run(tokens["Bot"])
 
 def get_random_quote():
-    response = requests.get('https://zenquotes.io/api/random')
-    json_data = json.loads(response.text)
-    quote = json_data[0]['q'] + " -" + json_data[0]['a']
-    return(quote)
+    return botFuncs.get_random_quote()
 
-def get_random_mars_photos(count):
-
-    URI = 'https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key={}'.format(nasaToken)
-    response = requests.get(URI)
-    json_data = json.loads(response.text)
-    photos = json_data["photos"]
-    photos_URLs = []
-
-    for i in range(count):
-        random_photo_index = random.randint(0, len(photos))
-        random_photo_object = photos[random_photo_index]
-        random_photo_URL = random_photo_object['img_src']
-        photos_URLs.append(random_photo_URL)
-
-    return photos_URLs
+def get_random_mars_photos(countStr):
+    return botFuncs.nasa(countStr, tokens["NASA"], botKeyword)
 
 def select_random_agents(players):
-    return agentSelector.randomize(players)
+    return botFuncs.select_random_agents(players)
+def breakTie(players):
+    return botFuncs.breakTie(players)
+def coinFlip(message=""):
+    return botFuncs.coinFlip(message)
+def shuffle(message = ""):
+    return botFuncs.shuffle(message)
+def rollDice(count = 1):
+    return botFuncs.rollDice(count)
+def cap(message = ""):
+    return botFuncs.cap(message)
 
 @client.event
 async def on_ready():
@@ -92,32 +75,23 @@ async def on_message(message):
         if msg.lower() == 'ping':
             await message.channel.send('PONG')
 
-        if msg.lower() == 'quote':
-            quote = get_random_quote()
-            await message.channel.send(quote)
-
-        if 'mars' in msg.lower():
-            countStr = msg.lower()[5:-1]
-
-            try:
-                count = int(countStr)
-            except:
-                await message.channel.send("The command format is: {}mars(#) where # is a number between 1 and 5".format(botKeyword))
-                return 
-
-            if count > 0 and count <= 5:
-                photos = get_random_mars_photos(count)
-                for photo in photos:
-                    await message.channel.send(photo)
-
-            else:
-                await message.channel.send("Number must be between 1 and 5")
-
-        if 'select-agents' in msg.lower():
-            playerListStr = msg.lower()[14:-1]
-            data = select_random_agents(playerListStr)
-            print(data)
-            await message.channel.send(data)
+        for command in commands:
+            if command in msg.lower():
+                print(command)
+                func = globals()[commands[command]]
+                param = msg.lower()[len(command)+1: -1]
+                try:
+                    if len(param) > 0:
+                        if isinstance(func(param), str):
+                            await message.channel.send(func(param))
+                        else:
+                            for m in func(param):
+                                await message.channel.send(m)
+                    else:
+                        await message.channel.send(globals()[commands[command]]())
+                except:
+                    await message.channel.send("Make sure your command exists and is written correctly.")
+                break
 
 startBot()
 
