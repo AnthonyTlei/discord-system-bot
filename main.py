@@ -55,6 +55,9 @@ def cap(message = ""):
     return botFuncs.cap(message)
 def ping():
     return botFuncs.ping()
+def generate_artifact():
+    with open(botFuncs.generate_artifact(), 'rb') as f:
+        return discord.File(f)
 
 @client.event
 async def on_ready():
@@ -66,6 +69,14 @@ async def on_message(message):
     # Return if the message is sent from the bot itself
     if message.author == client.user:
         return 
+
+    if "good boi" in message.content.lower() :
+        if message.author.id in [323805449067560960, 709779444411138108]:
+            await message.channel.send("Thank you master")
+            return 
+        else:
+            await message.channel.send("Know your place, peasant")
+            return
     
     if message.content.startswith(botKeyword):
 
@@ -74,6 +85,11 @@ async def on_message(message):
         if msg.lower() == 'help':
             response = "..."
             await message.channel.send(response)
+
+        if msg.lower() == 'generate-artifact':
+            response = generate_artifact()
+            await message.channel.send(file=response)
+            return
 
         for command in commands:
             if command in msg.lower():

@@ -8,4 +8,5 @@
   "roll-dice": "rollDice",
   "cap": "cap",
   "ping": "ping",
+  "generate-artifact": "generate_artifact"
 }

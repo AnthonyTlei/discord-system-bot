@@ -8,7 +8,12 @@ import random
 
 import pandas as pd
 
+import sys
+sys.path.append('libs/artifact-simulator/')
+import artifact
+
 from libs import AgentRandomizer as agentSelector, TieBreaker as tieBreaker
+
 #import AgentRandomizer as agentSelector, TieBreaker as tieBreaker
 
 def get_random_quote():
@@ -74,3 +79,5 @@ def cap(message):
         return m + " is " + result + "-ping"
 def ping():
     return "PONG"
+def generate_artifact():
+    return artifact.renderer.render(artifact.gen(), show=False, save=True)

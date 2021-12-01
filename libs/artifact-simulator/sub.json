@@ -1,0 +1,96 @@
+{
+    "Flower":{
+       "ATK":15.79,
+       "DEF":15.79,
+       "HP%":10.53,
+       "ATK%":10.53,
+       "DEF%":10.53,
+       "Energy Recharge%":10.53,
+       "Elemental Mastery":10.53,
+       "Crit Rate%":7.89,
+       "Crit DMG%":7.89
+    },
+    "Plume":{
+       "HP":15.79,
+       "DEF":15.79,
+       "HP%":10.53,
+       "ATK%":10.53,
+       "DEF%":10.53,
+       "Energy Recharge%":10.53,
+       "Elemental Mastery":10.53,
+       "Crit Rate%":7.89,
+       "Crit DMG%":7.89
+    },
+    "Sands":{
+       "HP":15.00,
+       "DEF":15.00,
+       "ATK":15.00,
+       "HP%":10.00,
+       "ATK%":10.00,
+       "DEF%":10.00,
+       "Energy Recharge%":10.00,
+       "Elemental Mastery":10.00,
+       "Crit Rate%":7.50,
+       "Crit DMG%":7.50
+    },
+    "GobletNonEl":{
+       "HP":15.00,
+       "DEF":15.00,
+       "ATK":15.00,
+       "HP%":10.00,
+       "ATK%":10.00,
+       "DEF%":10.00,
+       "Energy Recharge%":10.00,
+       "Elemental Mastery":10.00,
+       "Crit Rate%":7.50,
+       "Crit DMG%":7.50
+    },
+    "GobletEl":{
+       "HP":13.64,
+       "DEF":13.64,
+       "ATK":13.64,
+       "HP%":9.09,
+       "ATK%":9.09,
+       "DEF%":9.09,
+       "Energy Recharge%":9.09,
+       "Elemental Mastery":9.09,
+       "Crit Rate%":6.82,
+       "Crit DMG%":6.82
+    },
+    "CircletCrit":{
+       "HP":14.63,
+       "DEF":14.63,
+       "ATK":14.63,
+       "HP%":9.76,
+       "ATK%":9.76,
+       "DEF%":9.76,
+       "Energy Recharge%":9.76,
+       "Elemental Mastery":9.76,
+       "Crit Rate%":7.32,
+       "Crit DMG%":7.32
+    },
+    "CircletHB":{
+       "HP":13.64,
+       "DEF":13.64,
+       "ATK":13.64,
+       "HP%":9.09,
+       "ATK%":9.09,
+       "DEF%":9.09,
+       "Energy Recharge%":9.09,
+       "Elemental Mastery":9.09,
+       "Crit Rate%":6.82,
+       "Crit DMG%":6.82
+    },
+    "CircletNormal":{
+       "HP":15.00,
+       "DEF":15.00,
+       "ATK":15.00,
+       "HP%":10.00,
+       "ATK%":10.00,
+       "DEF%":10.00,
+       "Energy Recharge%":10.00,
+       "Elemental Mastery":10.00,
+       "Crit Rate%":7.50,
+       "Crit DMG%":7.50
+    }
+ }

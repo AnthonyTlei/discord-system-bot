@@ -1,0 +1,37 @@
+{
+    "Flower":{
+       "HP":100.00
+    },
+    "Plume":{
+       "ATK":100.00
+    },
+    "Sands":{
+       "HP%":26.68,
+       "ATK%":26.66,
+       "DEF%":26.66,
+       "Energy Recharge%":10.00,
+       "Elemental Mastery":10.00
+    },
+    "Goblet":{
+       "HP%":21.25,
+       "ATK%":21.25,
+       "DEF%":20.00,
+       "Elemental Mastery":2.50,
+       "Pyro DMG Bonus%":5.00,
+       "Electro DMG Bonus%":5.00,
+       "Cryo DMG Bonus%":5.00,
+       "Hydro DMG Bonus%":5.00,
+       "Anemo DMG Bonus%":5.00,
+       "Geo DMG Bonus%":5.00,
+       "Physical DMG Bonus%":5.00
+    },
+    "Circlet":{
+       "HP%":22.00,
+       "ATK%":22.00,
+       "DEF%":22.00,
+       "Healing Bonus%":10.00,
+       "Elemental Mastery":4.00,
+       "Crit Rate%":10.00,
+       "Crit DMG%":10.00
+    }
+ }
